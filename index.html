@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastFood</title>
+    <link rel='shortcut icon' href='image/favicon.ico' />
+    <link rel="stylesheet" href="src/style.css">
+    <link rel="stylesheet" href="./icofont/icofont/icofont.min.css">
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+      />
+      
+</head>
+<body >
+    <div id="app">
+    <section class="heading" >
+        <a href="#" class="logo">FastFood</a>
+        <ul class="nav">
+            <li>
+                <a href="#home">
+                    <i class="icofont-home"></i>
+                    <p>Home</p>
+                </a>
+            </li>
+            <li>
+                <a href="#about">
+                    <i class="icofont-culinary"></i>
+                    <p>About</p>
+                </a>
+            </li>
+            <li>
+                <a href="#menu">
+                    <i class="icofont-fork-and-knife"></i>
+                    <p>Menu</p>
+                </a>
+            </li>
+            <li>
+                <a href="#feedback">
+                    <i class="icofont-contacts"></i>
+                    <p>Feedback</p>
+                </a>
+            </li>
+            <li>
+                <a href="#order">
+                    <i class="icofont-clip-board"></i>
+                    <p>Order</p>
+                </a>
+            </li>
+        </ul>
+        <div class="icon">
+            <i class="icofont-user" id="openLogin"></i>
+            <div class="icon-cart">
+                <i class="icofont-shopping-cart" id="openCart"></i>
+                <p class="cart-count" v-show="itemcount > 0">{{itemcount}}</p>
+            </div>
+        </div>
+    </section>
+    <!-- close button start-->
+    <div class="closer">
+        <i class="icofont-close"></i>
+    </div>
+    <!-- closer button end -->
+
+    <!-- shopping cart start -->
+    <div class="cart">
+        <h1>Cart</h1>
+        <div class="box" v-for="i in carts">
+                <i class="icon-close icofont-close" v-on:click="removeItem(i)"></i>
+                <img :src="i.image" alt="">
+                <div class="cart-content">
+                    <h3>{{i.name}}</h3>
+                    <span>{{i.price}}</span>
+                    <span>x</span>
+                    <span>{{i.count}}</span>
+                    <span>= {{formatPrice(i.price * i.count)}}</span>
+                </div>
+        </div>
+        <h3 class="total">Total: <span>{{getAmout()}}</span></h3>
+        <a href="#" class="btn">Check out</a>
+    </div>
+    <!-- shopping cart end -->
+    <!-- login form start -->
+    <div class="login-form">
+        <form action="">
+            <h3>login form</h3>
+            <input type="email" placeholder="enter your email" class="box">
+            <input type="password" placeholder="enter your password" class="box">
+            <div class="remember">
+                <input type="checkbox" name="" id="remember-me">
+                <label for="remember-me">remember me</label>
+            </div>
+            <input type="submit" value="login now" class="btn">
+            <p>forget password? <a href="#">click here</a></p>
+            <p>don't have an account? <a href="#">create now</a></p>
+        </form>
+    </div>
+    <!-- login form end -->
+
+
+    <!-- slider start   -->
+    <section class="home" id="home">
+        <div class="slide-container">
+            <div class="slide active">
+                <div class="content">
+                    <span>Welcome FastFood</span>
+                    <h3>we have all kinds of fast food</h3>
+                    <p>Wish you have a delicious meal.</p>
+                    <a href="#" class="btn">Oder now</a>
+                </div>
+                <div class="image">
+                    <img src="image/home-img.png" alt="">
+                </div>
+            </div>
+            <div class="slide">
+                <div class="content">
+                    <span>Welcome FastFood</span>
+                    <h3>we have all kinds of fast food</h3>
+                    <p>Wish you have a delicious meal.</p>
+                    <a href="#" class="btn">Oder now</a>
+                </div>
+                <div class="image">
+                    <img src="image/home-img.png" alt="">
+                </div>
+            </div>
+            <div class="slide">
+                <div class="content">
+                    <span>Welcome FastFood</span>
+                    <h3>we have all kinds of fast food</h3>
+                    <p>Wish you have a delicious meal.</p>
+                    <a href="#" class="btn">Oder now</a>
+                </div>
+                <div class="image">
+                    <img src="image/home-img.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-next" onclick="next()" class="icofont-simple-right"></div>
+        <div id="slide-prev" onclick="prev()" class="icofont-rounded-left"></div>
+    </section>
+
+    <!-- slider end -->
+    <section class="category">
+        <a href="#" class="box">
+            <img src="image/cat-1.png" alt="">
+            <h3>combo</h3>
+        </a>
+    
+        <a href="#" class="box">
+            <img src="image/cat-2.png" alt="">
+            <h3>pizza</h3>
+        </a>
+    
+        <a href="#" class="box">
+            <img src="image/cat-3.png" alt="">
+            <h3>burger</h3>
+        </a>
+    
+        <a href="#" class="box">
+            <img src="image/cat-4.png" alt="">
+            <h3>chicken</h3>
+        </a>
+    
+        <a href="#" class="box">
+            <img src="image/cat-5.png" alt="">
+            <h3>dinner</h3>
+        </a>
+    
+        <a href="#" class="box">
+            <img src="image/cat-6.png" alt="">
+            <h3>coffee</h3>
+        </a>
+    </section>
+    <!-- about start -->
+    <section class="about" id="about">
+
+        <div class="image">
+            <img src="image/about-img.png" alt="">
+        </div>
+    
+        <div class="content">
+            <span>why choose us?</span>
+            <h3 class="title">what's make our food delicious!</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos ut explicabo, numquam iusto est a ipsum assumenda tempore esse corporis?</p>
+            <a href="#" class="btn">read more</a>
+            <div class="icons-container">
+                <div class="icons">
+                    <img src="image/serv-1.png" alt="">
+                    <h3>fast delivery</h3>
+                </div>  
+                <div class="icons">
+                    <img src="image/serv-2.png" alt="">
+                    <h3>fresh food</h3>
+                </div>   
+                <div class="icons">
+                    <img src="image/serv-3.png" alt="">
+                    <h3>best quality</h3>
+                </div>  
+                <div class="icons">
+                    <img src="image/serv-4.png" alt="">
+                    <h3>24/7 support</h3>
+                </div>           
+            </div>
+        </div>
+    </section>
+    <!-- about end -->
+
+    <!-- content start -->
+    <section class="menu" id="menu">
+        <div class="main-content-title">
+            <span>Menu food</span>
+            <h1 class="title-logo">
+                in our store
+            </h1>
+        </div>
+        <div class="main-content">
+            <div v-for="pr in products">
+            <div class="main-content-item">
+                <div class="item-detail">
+                    <div class="image-menu">
+                        <img :src="pr.image" alt="">
+                    </div>
+                    <b>{{pr.name}}</b>
+                    <p style="font-size:14px;">Quantity: {{pr.quantity}}</p>
+                    <div class="stars">
+                        <i class="icofont-star"></i>
+                        <i class="icofont-star"></i>
+                        <i class="icofont-star"></i>
+                        <i class="icofont-star"></i>
+                        <i class="icofont-star"></i>
+                    </div>
+                    <span>{{formatPrice(pr.price)}}</span>
+                    <button class="btn btn-add" v-on:click="addCart(pr)" v-show="pr.quantity > 0">Add to card</button>
+                    <button class="btn btn-disable" v-show="pr.quantity < 1" style="cursor: default">Sold out</button>
+                </div>
+            </div>
+            </div>
+            <!-- <div class="main-content-item">
+                <div class="item-detail">
+                    <img src="image/food-2.png" alt="">
+                    <b>Food 1</b>
+                    <span>500.000$</span>
+                    <button class="btn btn-add">Add to card</button>
+                </div>
+            </div>
+            <div class="main-content-item">
+                <div class="item-detail">
+                    <img src="image/food-3.png" alt="">
+                    <b>Food 1</b>
+                    <span>500.000$</span>
+                    <button class="btn btn-add">Add to card</button>
+                </div>
+            </div>
+            <div class="main-content-item">
+                <div class="item-detail">
+                    <img src="image/food-4.png" alt="">
+                    <b>Food 1</b>
+                    <span>500.000$</span>
+                    <button class="btn btn-add">Add to card</button>
+                </div>
+            </div>
+            <div class="main-content-item">
+                <div class="item-detail">
+                    <img src="image/food-5.png" alt="">
+                    <b>Food 1</b>
+                    <span>500.000$</span>
+                    <button class="btn btn-add">Add to card</button>
+                </div>
+            </div>
+            <div class="main-content-item">
+                <div class="item-detail">
+                    <img src="image/food-6.png" alt="">
+                    <b>Food 1</b>
+                    <span>500.000$</span>
+                    <button class="btn btn-add">Add to card</button>
+                </div>
+            </div>
+            <div class="main-content-item">
+                <div class="item-detail">
+                    <img src="image/food-7.png" alt="">
+                    <b>Food 1</b>
+                    <span>500.000$</span>
+                    <button class="btn btn-add">Add to card</button>
+                </div>
+            </div>
+            <div class="main-content-item">
+                <div class="item-detail">
+                    <img src="image/food-8.png" alt="">
+                    <b>Food 1</b>
+                    <span>500.000$</span>
+                    <button class="btn btn-add">Add to card</button>
+                </div>
+            </div> -->
+        </div>
+    </section>
+    <!-- content end -->
+    
+    <!-- banner start -->
+    <section class="banner">
+        <div class="row-banner">
+            <div class="content">
+                <span>double cheese</span>
+                <h3>burger</h3>
+                <p>with cococola and fries</p>
+                <a href="#" class="btn">order now</a>
+            </div>
+        </div>
+    
+        <div class="grid-banner">
+            <div class="grid">
+                <img src="image/banner-1.png" alt="">
+                <div class="content">
+                    <span>special offer</span>
+                    <h3>upto 50% off</h3>
+                    <a href="#" class="btn">order now</a>
+                </div>
+            </div>
+            <div class="grid">
+                <img src="image/banner-2.png" alt="">
+                <div class="content center">
+                    <span>special offer</span>
+                    <h3>upto 25% extra</h3>
+                    <a href="#" class="btn">order now</a>
+                </div>
+            </div>
+            <div class="grid">        
+                <img src="image/banner-3.png" alt="">
+                <div class="content">
+                    <span>limited offer</span>
+                    <h3>100% cashback</h3>
+                    <a href="#" class="btn">order now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- banner end -->
+
+    <!-- Feedback start  -->
+    <section class="feedback-abc" id="feedback">
+        <div class="main-content-title">
+            <span>Feedback</span>
+            <h1 class="title-logo">
+                from customer
+            </h1>
+        </div>
+        <div class="feedback">
+            <div class="feedback-main">
+                <div class="feedback-content">
+                    Đồ ăn ở đây rất ngon....
+                </div>
+                <div class="feedback-star">
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                </div>
+                <hr style="background-color: #ccc;width: 100%;height: 1px;" />
+                <div class="feedback-person">
+                    <b>Mr. Chiến</b>
+                </div>
+            </div>
+            <div class="feedback-main">
+                <div class="feedback-content">
+                    Đồ ăn ở đây rất ngon....
+                </div>
+                <div class="feedback-star">
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                </div>
+                <hr style="background-color: #ccc;width: 100%;height: 1px;" />
+                <div class="feedback-person">
+                    <b>Mr. Chiến</b>
+                </div>
+            </div>
+            <div class="feedback-main">
+                <div class="feedback-content">
+                    Đồ ăn ở đây rất ngon....
+                </div>
+                <div class="feedback-star">
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                </div>
+                <hr style="background-color: #ccc;width: 100%;height: 1px;" />
+                <div class="feedback-person">
+                    <b>Mr. Chiến</b>
+                </div>
+            </div>
+            <div class="feedback-main">
+                <div class="feedback-content">
+                    Đồ ăn ở đây rất ngon....
+                </div>
+                <div class="feedback-star">
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                </div>
+                <hr style="background-color: #ccc;width: 100%;height: 1px;" />
+                <div class="feedback-person">
+                    <b>Mr. Chiến</b>
+                </div>
+            </div>
+            <div class="feedback-main">
+                <div class="feedback-content">
+                    Đồ ăn ở đây rất ngon....
+                </div>
+                <div class="feedback-star">
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                    <i class="icofont-star"></i>
+                </div>
+                <hr style="background-color: #ccc;width: 100%;height: 1px;" />
+                <div class="feedback-person">
+                    <b>Mr. Chiến</b>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- Feedback end -->
+    <!-- order start -->
+    <section class="order" id="order">
+        <div class="main-content-title">
+            <span>order now</span>
+            <h1 class="title-logo">fastest home delivery</h1>
+        </div>
+        <div class="icons-container">
+            <div class="icons">
+                <img src="image/icon-1.png" alt="">
+                <h3>7:00am to 10:30pm</h3>
+            </div>
+            <div class="icons">
+                <img src="image/icon-2.png" alt="">
+                <h3>+84-383-846-198</h3>
+            </div>
+            <div class="icons">
+                <img src="image/icon-3.png" alt="">
+                <h3>Quận Tân Phú - Tp Hồ Chí Minh</h3>
+            </div>
+        </div>
+        <form action="">
+            <div class="flex">
+                <div class="inputBox">
+                    <span>your name</span>
+                    <input type="text" placeholder="customer's name">
+                </div>
+                <div class="inputBox">
+                    <span>your number</span>
+                    <input type="number" placeholder="customer's number">
+                </div>
+            </div>
+            <div class="flex">
+                <div class="inputBox">
+                    <span>your order</span>
+                    <input type="text" placeholder="food you want">
+                </div>
+                <div class="inputBox">
+                    <span>how much</span>
+                    <input type="number" placeholder="number or orders">
+                </div>
+            </div>
+            <div class="flex">
+                <div class="inputBox">
+                    <span>your details</span>
+                    <input type="text" placeholder="your message">
+                </div>
+                <div class="inputBox">
+                    <span>pick up time</span>
+                    <input type="datetime-local">
+                </div>
+            </div>
+            <div class="flex">
+                <div class="inputBox">
+                    <textarea placeholder="your address" id="" cols="30" rows="10"></textarea>
+                </div>
+                <div class="inputBox">
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7838.502028164978!2d106.63036752410665!3d10.792076969243588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752eab575fc451%3A0x32ed52c54fa952f1!2zVMOibiBUaOG6oW5oLCBUw6JuIFBow7osIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1638021839590!5m2!1svi!2s" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+            <input type="submit" value="proceed to order" class="btn">
+        </form>
+    </section>
+    <!-- order end -->
+    <!-- footer start -->
+    <section class="footer">
+        <div class="footer-left">
+            <h3> Chính sách</h3>
+            <ul>
+                <li><a href="#">Chính sách đổi trả</a></li>
+                <li><a href="#">Chính sách vận chuyển</a></li>
+                <li><a href="#">Chính sách thanh toán</a></li>
+                <li><a href="#">Chính sách bảo mật </a></li>
+                <li><a href="#">Điểu khoản dịch vụ</a></li>
+            </ul>
+        </div>
+        <div class="footer-center">
+            <h3>Thông tin</h3>
+            <ul>
+                <li><a href="#">Hệ thống cửa hàng</a></li>
+                <li><a href="#">Khách hàng thân thiện</a></li>
+                <li><a href="#">Góc ẩm thực</a></li>
+            </ul>
+        </div>
+        <div class="footer-right">
+            <h3>Theo dõi Fanpage</h3>
+            <div class="footer-right-social">
+                <a href="#">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174848.png" alt="">
+                </a>
+                <a href="#">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174883.png" alt="">
+                </a>
+                
+            </div>
+        </div>
+    </section>
+    <!-- footer end -->
+</div>
+
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-1.11.0.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    
+    <script src="src/slick.js"></script>
+    
+    
+    
+
+    
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="data/app.js"></script>
+    <script src="src/script.js">
+    </script>
+</html>
